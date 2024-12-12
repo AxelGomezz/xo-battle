@@ -1,4 +1,5 @@
-board = [["X", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+iterations = 0
 
 def print_board():
     print("  1 | 2 | 3")
@@ -11,7 +12,7 @@ def print_board():
         i+=1
 
 def request_movement():
-    print("\nWhat is your next moviment?")
+    print("\nWhat is your next movement?")
     while True:
         try:
             row = int(input("Enter row of your selection: "))
@@ -23,6 +24,7 @@ def request_movement():
             break
         else:
             print("\nThat position in board is not empty\nPlease enter a position empty in board\n")
+            print_board()
 
 def do_movement_x(row, column):
     board[row-1][column-1] = "X"
@@ -31,9 +33,22 @@ def do_movement_o(row,column):
     board[row-1][column-1] = "O"
 
 #MAIN
-print_board()
-row, column = request_movement()
-do_movement_x(row, column)
-print_board()
+last_movement = "X"
 
+while iterations != 9:
+    print_board()
+    row, column = request_movement()
 
+    if last_movement == "X":
+        do_movement_o(row,column)
+        last_movement = "O"
+        iterations += 1
+
+    else:
+        do_movement_x(row,column)
+        last_movement = "X"
+        iterations +=1
+
+#if iterations == 9:
+ #   print_board()
+  #  print("-- EMPATE --")
