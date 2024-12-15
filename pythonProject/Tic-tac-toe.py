@@ -61,6 +61,11 @@ def vertical_winner(board, player): # check this, not working
     return False
 
 
+def diagonal_winner(board, player):
+    if all(board[cell][cell] == player for cell in range(3)):
+        return True
+    return False
+
 #MAIN
 last_movement = "O"
 verify_winner = False
@@ -72,7 +77,8 @@ while iterations != 9:
         do_movement_x(row,column)
         horizontal_winner()
         vertical_winner(board, "X")
-        if horizontal_winner() or vertical_winner(board,"X") == True:
+        diagonal_winner(board, "X")
+        if horizontal_winner() or vertical_winner(board,"X") or diagonal_winner(board, "X")== True:
             print_board()
             print("Gamer X are the winner!")
             break
@@ -83,7 +89,9 @@ while iterations != 9:
         do_movement_o(row, column)
         horizontal_winner()
         vertical_winner(board,"O")
-        if horizontal_winner() or vertical_winner(board,"O") == True:
+        diagonal_winner(board, "O")
+
+        if horizontal_winner() or vertical_winner(board,"O" or diagonal_winner(board, "O")) == True:
             print_board()
             print("Gamer O are the winner!")
             break
