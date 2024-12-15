@@ -64,7 +64,10 @@ def vertical_winner(board, player): # check this, not working
 def diagonal_winner(board, player):
     if all(board[cell][cell] == player for cell in range(3)):
         return True
+    if all(board[cell][2-cell] == player for cell in range(3)):
+            return True
     return False
+
 
 #MAIN
 last_movement = "O"
