@@ -1,4 +1,6 @@
-board = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+board = [[" ", " ", " "],
+         [" ", " ", " "],
+         [" ", " ", " "]]
 iterations = 0
 
 def print_board():
@@ -52,6 +54,12 @@ def horizontal_winner():
     else:
         return False
 
+def vertical_winner(board, player): # check this, not working
+    for col in range(3):
+        if all(board[row][col] == player for row in range(3)):
+            return True
+    return False
+
 
 #MAIN
 last_movement = "O"
@@ -62,8 +70,9 @@ while iterations != 9:
 
     if last_movement == "O":
         do_movement_x(row,column)
-        verify_winner = horizontal_winner()
-        if verify_winner == True:
+        horizontal_winner()
+        vertical_winner(board, "X")
+        if horizontal_winner() or vertical_winner(board,"X") == True:
             print_board()
             print("Gamer X are the winner!")
             break
@@ -72,8 +81,9 @@ while iterations != 9:
 
     else:
         do_movement_o(row, column)
-        verify_winner = horizontal_winner()
-        if verify_winner == True:
+        horizontal_winner()
+        vertical_winner(board,"O")
+        if horizontal_winner() or vertical_winner(board,"O") == True:
             print_board()
             print("Gamer O are the winner!")
             break
