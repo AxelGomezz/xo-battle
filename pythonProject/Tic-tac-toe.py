@@ -30,12 +30,8 @@ def request_movement():
             print_board()
 
 
-def do_movement_x(row, column):
-    board[row-1][column-1] = "X"
-
-
-def do_movement_o(row,column):
-    board[row-1][column-1] = "O"
+def do_movement(row, column,player):
+    board[row-1][column-1] = player
 
 
 def horizontal_winner():
@@ -54,7 +50,7 @@ def horizontal_winner():
     else:
         return False
 
-def vertical_winner(board, player): # check this, not working
+def vertical_winner(board, player):
     for col in range(3):
         if all(board[row][col] == player for row in range(3)):
             return True
@@ -77,19 +73,20 @@ while iterations != 9:
     row, column = request_movement()
 
     if last_movement == "O":
-        do_movement_x(row,column)
+        do_movement(row,column,"X")
         horizontal_winner()
         vertical_winner(board, "X")
         diagonal_winner(board, "X")
-        if horizontal_winner() or vertical_winner(board,"X") or diagonal_winner(board, "X")== True:
+
+        if horizontal_winner() or vertical_winner(board,"X") or diagonal_winner(board, "X") == True:
             print_board()
             print("Gamer X are the winner!")
             break
+
         last_movement = "X"
         iterations += 1
-
     else:
-        do_movement_o(row, column)
+        do_movement(row, column, "O")
         horizontal_winner()
         vertical_winner(board,"O")
         diagonal_winner(board, "O")
@@ -98,9 +95,10 @@ while iterations != 9:
             print_board()
             print("Gamer O are the winner!")
             break
+
         last_movement = "O"
         iterations +=1
 
-#if iterations == 9:
- #   print_board()
-  #  print("-- EMPATE --")
+if iterations == 9:
+    print_board()
+    print("-- EMPATE --")
