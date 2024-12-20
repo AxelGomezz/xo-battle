@@ -1,3 +1,5 @@
+from tabnanny import check
+
 board = [[" ", " ", " "],
          [" ", " ", " "],
          [" ", " ", " "]]
@@ -34,18 +36,12 @@ def do_movement(row, column,player):
     board[row-1][column-1] = player
 
 
-def horizontal_winner():
-    if all(cell == "X" for cell in board[0][0:3]):
+def horizontal_winner(board, player):
+    if all(cell == player for cell in board[0][0:3]):
         return True
-    if all(cell == "X" for cell in board[1][0:3]):
+    if all(cell == player for cell in board[1][0:3]):
         return True
-    if all(cell == "X" for cell in board[2][0:3]):
-        return True
-    if all(cell == "O" for cell in board[0][0:3]):
-        return True
-    if all(cell == "O" for cell in board[1][0:3]):
-        return True
-    if all(cell == "O" for cell in board[2][0:3]):
+    if all(cell == player for cell in board[2][0:3]):
         return True
     else:
         return False
@@ -65,20 +61,28 @@ def diagonal_winner(board, player):
     return False
 
 
+def check_winner(board, player):
+    vertical_winner(board, player)
+    horizontal_winner(board, player)
+    diagonal_winner(board, player)
+    if horizontal_winner(board, player) or vertical_winner(board,"X") or diagonal_winner(board, "X") == True:
+        return True
+    else:
+        return False
+
+
 #MAIN
 last_movement = "O"
-verify_winner = False
+
 while iterations != 9:
     print_board()
     row, column = request_movement()
 
     if last_movement == "O":
         do_movement(row,column,"X")
-        horizontal_winner()
-        vertical_winner(board, "X")
-        diagonal_winner(board, "X")
+        check_winner(board, "X")
 
-        if horizontal_winner() or vertical_winner(board,"X") or diagonal_winner(board, "X") == True:
+        if check_winner(board, "X") == True:
             print_board()
             print("Gamer X are the winner!")
             break
@@ -87,11 +91,9 @@ while iterations != 9:
         iterations += 1
     else:
         do_movement(row, column, "O")
-        horizontal_winner()
-        vertical_winner(board,"O")
-        diagonal_winner(board, "O")
+        check_winner(board, "O")
 
-        if horizontal_winner() or vertical_winner(board,"O" or diagonal_winner(board, "O")) == True:
+        if check_winner(board, "O") == True:
             print_board()
             print("Gamer O are the winner!")
             break
