@@ -22,14 +22,20 @@ def request_movement():
         try:
             row = int(input("Enter row of your selection: "))
             column = int(input("Enter column of your selection: "))
+
+            if row & column in [1,2,3]:
+
+                if board[row - 1][column - 1] == " ":
+                    return row, column
+                    break
+                else:
+                    print("\nThat position in board is not empty\nPlease enter a position empty in board\n")
+                    print_board()
+
+            else:
+                print("\nERROR: POSITION SELECTED IS INVALID.\n")
         except ValueError:
-            print("\nERROR: Invalid value\nPlease enter a number of position in board.")
-        if board[row-1][column-1] == " ":
-            return row, column
-            break
-        else:
-            print("\nThat position in board is not empty\nPlease enter a position empty in board\n")
-            print_board()
+            print("\nERROR: INVALID VALUE\nPlease enter a number of position in board.\n")
 
 
 def do_movement(row, column,player):
