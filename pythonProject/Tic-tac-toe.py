@@ -23,7 +23,7 @@ def request_movement():
             row = int(input("Enter row of your selection: "))
             column = int(input("Enter column of your selection: "))
 
-            if row & column in [1,2,3]:
+            if row in [1,2,3] and column in [1,2,3]:
 
                 if board[row - 1][column - 1] == " ":
                     return row, column
@@ -34,8 +34,10 @@ def request_movement():
 
             else:
                 print("\nERROR: POSITION SELECTED IS INVALID.\n")
+                print_board()
         except ValueError:
-            print("\nERROR: INVALID VALUE\nPlease enter a number of position in board.\n")
+            print("\nERROR: INVALID VALUE\nPlease enter a number of position in board.")
+            print_board()
 
 
 def do_movement(row, column,player):
