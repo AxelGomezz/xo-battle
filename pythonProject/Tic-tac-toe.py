@@ -1,4 +1,3 @@
-from tabnanny import check
 
 board = [[" ", " ", " "],
          [" ", " ", " "],
@@ -70,10 +69,7 @@ def diagonal_winner(board, player):
 
 
 def check_winner(board, player):
-    vertical_winner(board, player)
-    horizontal_winner(board, player)
-    diagonal_winner(board, player)
-    if horizontal_winner(board, player) or vertical_winner(board,"X") or diagonal_winner(board, "X") == True:
+    if horizontal_winner(board, player) or vertical_winner(board,player) or diagonal_winner(board, player) == True:
         return True
     else:
         return False
