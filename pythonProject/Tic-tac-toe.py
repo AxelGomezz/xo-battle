@@ -84,7 +84,6 @@ while iterations != 9:
 
     if last_movement == "O":
         do_movement(row,column,"X")
-        check_winner(board, "X")
 
         if check_winner(board, "X") == True:
             print_board()
@@ -95,7 +94,6 @@ while iterations != 9:
         iterations += 1
     else:
         do_movement(row, column, "O")
-        check_winner(board, "O")
 
         if check_winner(board, "O") == True:
             print_board()
