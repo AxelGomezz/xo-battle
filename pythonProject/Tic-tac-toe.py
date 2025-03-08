@@ -16,7 +16,7 @@ def print_board():
 
 
 def request_movement():
-    print("\nWhat is your next movement?")
+    print("\nWhat's your next move?")
     while True:
         try:
             row = int(input("Enter row of your selection: "))
@@ -87,7 +87,7 @@ while iterations != 9:
 
         if check_winner(board, "X") == True:
             print_board()
-            print("Gamer X are the winner!")
+            print("Player X is the winner!")
             break
 
         last_movement = "X"
@@ -96,7 +96,7 @@ while iterations != 9:
 
         if check_winner(board, "O") == True:
             print_board()
-            print("Gamer O are the winner!")
+            print("Player O is the winner!")
             break
 
         last_movement = "O"
