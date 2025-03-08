@@ -91,7 +91,6 @@ while iterations != 9:
             break
 
         last_movement = "X"
-        iterations += 1
     else:
         do_movement(row, column, "O")
 
@@ -101,7 +100,7 @@ while iterations != 9:
             break
 
         last_movement = "O"
-        iterations +=1
+    iterations +=1
 
 if iterations == 9:
     print_board()
