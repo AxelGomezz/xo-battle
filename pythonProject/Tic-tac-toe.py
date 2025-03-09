@@ -17,6 +17,7 @@ def print_board():
 
 
 def check_empty_position(empty_positions):
+    empty_positions.clear()
     for row in range(3):
         for item in range(3):
             if board[row][item] == " ":
@@ -91,10 +92,10 @@ last_movement = "O"
 
 while iterations != 9:
     print_board()
-    row, column = request_movement()
 
     if last_movement == "O":
-        do_movement(row,column,"X")
+        row, column = request_movement()
+        do_movement(row, column,"X")
 
         if check_winner(board, "X") == True:
             print_board()
@@ -103,8 +104,9 @@ while iterations != 9:
 
         last_movement = "X"
     else:
-        do_movement(row, column, "O")
-
+        check_empty_position(empty_positions)
+        print("\n-- BOT O Realized move --")
+        ai_move(empty_positions)
         if check_winner(board, "O") == True:
             print_board()
             print("Player O is the winner!")
