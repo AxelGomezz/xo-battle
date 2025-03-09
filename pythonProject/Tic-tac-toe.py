@@ -1,4 +1,4 @@
-
+import random
 board = [[" ", " ", " "],
          [" ", " ", " "],
          [" ", " ", " "]]
@@ -22,6 +22,9 @@ def check_empty_position(empty_positions):
             if board[row][item] == " ":
                 empty_positions.append((row,item))
 
+def ai_move(empty_positions):
+    row,column = random.choice(empty_positions)
+    board[row][column] = "O"
 
 def request_movement():
     print("\nWhat's your next move?")
