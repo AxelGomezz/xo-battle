@@ -3,6 +3,7 @@ board = [[" ", " ", " "],
          [" ", " ", " "],
          [" ", " ", " "]]
 iterations = 0
+empty_positions = []
 
 def print_board():
     print("  1 | 2 | 3")
@@ -13,6 +14,13 @@ def print_board():
             print(item, end=" | ")
         print("")
         i+=1
+
+
+def check_empty_position(empty_positions):
+    for row in range(3):
+        for item in range(3):
+            if board[row][item] == " ":
+                empty_positions.append((row,item))
 
 
 def request_movement():
