@@ -25,7 +25,7 @@ def check_empty_position(empty_positions):
 
 def ai_move(empty_positions):
     row,column = random.choice(empty_positions)
-    board[row][column] = "O"
+    board[row][column] = "O" 
 
 def request_movement():
     print("\nWhat's your next move?")
