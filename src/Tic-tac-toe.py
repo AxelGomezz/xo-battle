@@ -24,13 +24,30 @@ def check_empty_position(empty_positions):
                 empty_positions.append((row,item))
 
 def ai_move(empty_positions):
-    counter_play, verify_counter_play = find_critical_move(board, player = "X")
+    counter_play, verify_counter_play = find_vertical_critical_moves(board, player = "X")
     if verify_counter_play == True:
         row, column = counter_play
         board[row][column] = "O"
     else:
         row,column = random.choice(empty_positions)
         board[row][column] = "O" 
+
+##Create a new 3 functions to find diagonal and vertical critical moves.
+## and change find_critical_move name to find_horizontal_critical_move
+## find_critical_move, can be a principal function to detect all critical moves.
+
+def find_vertical_critical_moves(board, player):
+    for col in range(3):
+        count = 0
+        danger_position = None
+        for row in range(3):
+            if board[row][col] == player:
+                count += 1
+            elif board[row][col] == " ":
+                danger_position = row, col
+        if count == 2 and danger_position is not None:
+            return danger_position, True
+    return None, False
 
 
 def find_critical_move(board, player):
