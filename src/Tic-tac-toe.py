@@ -24,8 +24,28 @@ def check_empty_position(empty_positions):
                 empty_positions.append((row,item))
 
 def ai_move(empty_positions):
-    row,column = random.choice(empty_positions)
-    board[row][column] = "O" 
+    counter_play, verify_counter_play = find_critical_move(board, player = "X")
+    if verify_counter_play == True:
+        row, column = counter_play
+        board[row][column] = "O"
+    else:
+        row,column = random.choice(empty_positions)
+        board[row][column] = "O" 
+
+
+def find_critical_move(board, player):
+    for index_row, row in enumerate(board):
+        count = 0
+        danger_position = None
+        for index_col, cell in enumerate(row):
+            if  cell == player:
+                count += 1
+            elif cell == " ":
+                danger_position = index_col
+        if count == 2 and danger_position is not None:
+            return (index_row, danger_position), True
+    return None, False
+
 
 def request_movement():
     print("\nWhat's your next move?")
