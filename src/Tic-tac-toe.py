@@ -24,7 +24,7 @@ def check_empty_position(empty_positions):
                 empty_positions.append((row,item))
 
 def ai_move(empty_positions):
-    counter_play, verify_counter_play = find_vertical_critical_moves(board, player = "X")
+    counter_play, verify_counter_play = find_diagonal_critical_moves(board, player = "X")
     if verify_counter_play == True:
         row, column = counter_play
         board[row][column] = "O"
@@ -47,6 +47,32 @@ def find_vertical_critical_moves(board, player):
                 danger_position = row, col
         if count == 2 and danger_position is not None:
             return danger_position, True
+    return None, False
+
+def find_diagonal_critical_moves(board, player):
+    count = 0
+    danger_position = None
+
+    for index in range(3): #check first diagonal
+        if board[index][index] == player:
+            count += 1
+        elif board[index][index] == " ":
+            danger_position = index, index
+    if count == 2 and danger_position is not None:
+        return danger_position, True
+
+#Reset variables values
+    count = 0 
+    danger_position = None
+
+    for index in range(3):# check second diagonal
+        if board[index][2-index] == player:
+            count += 1
+        elif board[index][2-index] == " ":
+            danger_position = index, 2-index
+    if count == 2 and danger_position is not None:
+        return danger_position, True
+    
     return None, False
 
 
