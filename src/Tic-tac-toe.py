@@ -23,8 +23,9 @@ def check_empty_position(empty_positions):
             if board[row][item] == " ":
                 empty_positions.append((row,item))
 
+
 def ai_move(empty_positions):
-    counter_play, verify_counter_play = find_diagonal_critical_moves(board, player = "X")
+    counter_play, verify_counter_play = find_critical_moves(board, player = "X")
     if verify_counter_play == True:
         row, column = counter_play
         board[row][column] = "O"
@@ -32,9 +33,21 @@ def ai_move(empty_positions):
         row,column = random.choice(empty_positions)
         board[row][column] = "O" 
 
-##Create a new 3 functions to find diagonal and vertical critical moves.
-## and change find_critical_move name to find_horizontal_critical_move
 ## find_critical_move, can be a principal function to detect all critical moves.
+def find_critical_moves(board, player):
+    counter_play, verify_counter_play = find_diagonal_critical_moves(board, player = "X")
+    if verify_counter_play == True:
+        return counter_play, True
+    
+    counter_play, verify_counter_play = find_horizontal_critical_moves(board, player = "X")
+    if verify_counter_play == True:
+        return counter_play, True
+    
+    counter_play, verify_counter_play = find_vertical_critical_moves(board, player = "X")
+    if verify_counter_play == True:
+        return counter_play, True
+    
+    return None, False
 
 def find_vertical_critical_moves(board, player):
     for col in range(3):
@@ -48,6 +61,7 @@ def find_vertical_critical_moves(board, player):
         if count == 2 and danger_position is not None:
             return danger_position, True
     return None, False
+
 
 def find_diagonal_critical_moves(board, player):
     count = 0
@@ -76,7 +90,7 @@ def find_diagonal_critical_moves(board, player):
     return None, False
 
 
-def find_critical_move(board, player):
+def find_horizontal_critical_moves(board, player):
     for index_row, row in enumerate(board):
         count = 0
         danger_position = None
@@ -127,6 +141,7 @@ def horizontal_winner(board, player):
         return True
     else:
         return False
+
 
 def vertical_winner(board, player):
     for col in range(3):
