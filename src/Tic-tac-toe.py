@@ -33,7 +33,7 @@ def ai_move(empty_positions):
         row,column = random.choice(empty_positions)
         board[row][column] = "O" 
 
-## find_critical_move, can be a principal function to detect all critical moves.
+
 def find_critical_moves(board, player):
     counter_play, verify_counter_play = find_diagonal_critical_moves(board, player = "X")
     if verify_counter_play == True:
@@ -48,6 +48,7 @@ def find_critical_moves(board, player):
         return counter_play, True
     
     return None, False
+
 
 def find_vertical_critical_moves(board, player):
     for col in range(3):
