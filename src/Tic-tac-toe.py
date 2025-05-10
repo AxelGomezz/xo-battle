@@ -26,12 +26,34 @@ def check_empty_position(empty_positions):
 
 def ai_move(empty_positions):
     counter_play, verify_counter_play = find_critical_moves(board, player = "X")
-    if verify_counter_play == True:
+    winning_move, verify_winning_move = find_vertical_winning_move(board, player = "O")
+    if verify_winning_move == True:
+        row, column = winning_move
+        board[row][column] = "O"
+    elif verify_counter_play == True:
         row, column = counter_play
         board[row][column] = "O"
     else:
         row,column = random.choice(empty_positions)
         board[row][column] = "O" 
+
+
+"""def find_winning_move(board, player):"""
+# #this will be the principal function to check winner moves
+
+
+def find_vertical_winning_move(board, player):
+    for col in range(3):
+        count = 0
+        winning_move = None
+        for row in range(3):
+            if board[row][col] == "O":
+                count += 1
+            elif board[row][col] == " ":
+                winning_move = row, col
+        if count == 2 and winning_move is not None:
+            return winning_move, True
+    return None, False
 
 
 def find_critical_moves(board, player):
