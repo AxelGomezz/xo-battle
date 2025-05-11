@@ -26,7 +26,7 @@ def check_empty_position(empty_positions):
 
 def ai_move(empty_positions):
     counter_play, verify_counter_play = find_critical_moves(board, player = "X")
-    winning_move, verify_winning_move = find_winning_move(board, player = "O")
+    winning_move, verify_winning_move = find_winning_moves(board, player = "O")
     if verify_winning_move == True:
         row, column = winning_move
         board[row][column] = "O"
