@@ -26,7 +26,7 @@ def check_empty_position(empty_positions):
 
 def ai_move(empty_positions):
     counter_play, verify_counter_play = find_critical_moves(board, player = "X")
-    winning_move, verify_winning_move = find_horizontal_winning_move(board, player = "O")
+    winning_move, verify_winning_move = find_diagonal_winning_move(board, player = "O")
     if verify_winning_move == True:
         row, column = winning_move
         board[row][column] = "O"
@@ -67,6 +67,33 @@ def find_horizontal_winning_move(board, player):
                 winning_move = index_col
         if count == 2 and winning_move is not None:
             return (index_row, winning_move), True
+    return None, False
+
+
+def find_diagonal_winning_move(board, player):
+    count = 0
+    winning_move = None
+
+    for index in range(3): #check first diagonal
+        if board[index][index] == player:
+            count += 1
+        elif board[index][index] == " ":
+            winning_move = index, index
+    if count == 2 and winning_move is not None:
+        return winning_move, True
+
+#Reset variables values
+    count = 0 
+    winning_move = None
+
+    for index in range(3):# check second diagonal
+        if board[index][2-index] == player:
+            count += 1
+        elif board[index][2-index] == " ":
+            winning_move = index, 2-index
+    if count == 2 and winning_move is not None:
+        return winning_move, True
+    
     return None, False
 
 
