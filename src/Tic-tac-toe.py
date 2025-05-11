@@ -16,14 +16,7 @@ def print_board():
         i+=1
 
 
-def check_empty_position(empty_positions):
-    empty_positions.clear()
-    for row in range(3):
-        for item in range(3):
-            if board[row][item] == " ":
-                empty_positions.append((row,item))
-
-
+#       ||| AI |||
 def ai_move(empty_positions):
     counter_play, verify_counter_play = find_critical_moves(board, player = "X")
     winning_move, verify_winning_move = find_winning_moves(board, player = "O")
@@ -37,8 +30,15 @@ def ai_move(empty_positions):
         row,column = random.choice(empty_positions)
         board[row][column] = "O" 
 
+def check_empty_position(empty_positions):
+    empty_positions.clear()
+    for row in range(3):
+        for item in range(3):
+            if board[row][item] == " ":
+                empty_positions.append((row,item))
 
-def find_winning_moves(board, player):
+# - Find winnings moves - 
+def find_winning_moves(board, player): # (Main winning moves function)
     winning_play, verify_winning_play = find_diagonal_critical_moves(board, player)
     if verify_winning_play == True:
         return winning_play, True
@@ -53,7 +53,6 @@ def find_winning_moves(board, player):
     
     return None, False
 
-
 def find_vertical_winning_move(board, player):
     for col in range(3):
         count = 0
@@ -67,7 +66,6 @@ def find_vertical_winning_move(board, player):
             return winning_move, True
     return None, False
 
-
 def find_horizontal_winning_move(board, player):
     for index_row, row in enumerate(board):
         count = 0
@@ -80,7 +78,6 @@ def find_horizontal_winning_move(board, player):
         if count == 2 and winning_move is not None:
             return (index_row, winning_move), True
     return None, False
-
 
 def find_diagonal_winning_move(board, player):
     count = 0
@@ -108,8 +105,8 @@ def find_diagonal_winning_move(board, player):
     
     return None, False
 
-
-def find_critical_moves(board, player):
+# - find critical moves - 
+def find_critical_moves(board, player): #(Main critical moves function)
     counter_play, verify_counter_play = find_diagonal_critical_moves(board, player = "X")
     if verify_counter_play == True:
         return counter_play, True
@@ -124,7 +121,6 @@ def find_critical_moves(board, player):
     
     return None, False
 
-
 def find_vertical_critical_moves(board, player):
     for col in range(3):
         count = 0
@@ -137,7 +133,6 @@ def find_vertical_critical_moves(board, player):
         if count == 2 and danger_position is not None:
             return danger_position, True
     return None, False
-
 
 def find_diagonal_critical_moves(board, player):
     count = 0
@@ -165,7 +160,6 @@ def find_diagonal_critical_moves(board, player):
     
     return None, False
 
-
 def find_horizontal_critical_moves(board, player):
     for index_row, row in enumerate(board):
         count = 0
@@ -180,6 +174,7 @@ def find_horizontal_critical_moves(board, player):
     return None, False
 
 
+# ||Movements functions||
 def request_movement():
     print("\nWhat's your next move?")
     while True:
@@ -203,10 +198,16 @@ def request_movement():
             print("\nERROR: INVALID VALUE\nPlease enter a number of position in board.")
             print_board()
 
-
 def do_movement(row, column,player):
     board[row-1][column-1] = player
 
+
+# ||| Check winner Functions |||
+def check_winner(board, player): #(Main check winner function)
+    if horizontal_winner(board, player) or vertical_winner(board,player) or diagonal_winner(board, player) == True:
+        return True
+    else:
+        return False
 
 def horizontal_winner(board, player):
     if all(cell == player for cell in board[0][0:3]):
@@ -218,13 +219,11 @@ def horizontal_winner(board, player):
     else:
         return False
 
-
 def vertical_winner(board, player):
     for col in range(3):
         if all(board[row][col] == player for row in range(3)):
             return True
     return False
-
 
 def diagonal_winner(board, player):
     if all(board[cell][cell] == player for cell in range(3)):
@@ -232,13 +231,6 @@ def diagonal_winner(board, player):
     if all(board[cell][2-cell] == player for cell in range(3)):
             return True
     return False
-
-
-def check_winner(board, player):
-    if horizontal_winner(board, player) or vertical_winner(board,player) or diagonal_winner(board, player) == True:
-        return True
-    else:
-        return False
 
 
 #MAIN
