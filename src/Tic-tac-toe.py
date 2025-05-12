@@ -16,7 +16,7 @@ def print_board():
         i+=1
 
 
-#       ||| AI |||
+#       // AI //
 def ai_move(empty_positions):
     counter_play, verify_counter_play = find_critical_moves(board, player = "X")
     winning_move, verify_winning_move = find_winning_moves(board, player = "O")
@@ -36,6 +36,31 @@ def check_empty_position(empty_positions):
         for item in range(3):
             if board[row][item] == " ":
                 empty_positions.append((row,item))
+
+def verify_key_moves(board):
+    key_move = None
+    if board[1][1] == " ":
+        key_move = 1, 1
+        return key_move, True
+    
+    elif board[0][0] == " ":
+        key_move = 0, 0
+        return key_move, True
+    
+    elif board[0][2] == " ":
+        key_move = 0, 2
+        return key_move, True
+    
+    elif board[2][0] == " ":
+        key_move = 2, 0
+        return key_move, True
+    
+    elif board[2][2] == " ":
+        key_move = 2, 2
+        return key_move, True
+    
+    else:
+        return None, False
 
 # - Find winnings moves - 
 def find_winning_moves(board, player): # (Main winning moves function)
@@ -174,7 +199,7 @@ def find_horizontal_critical_moves(board, player):
     return None, False
 
 
-# ||Movements functions||
+# //Movements functions//
 def request_movement():
     print("\nWhat's your next move?")
     while True:
@@ -202,7 +227,7 @@ def do_movement(row, column,player):
     board[row-1][column-1] = player
 
 
-# ||| Check winner Functions |||
+# // Check winner Functions //
 def check_winner(board, player): #(Main check winner function)
     if horizontal_winner(board, player) or vertical_winner(board,player) or diagonal_winner(board, player) == True:
         return True
@@ -233,7 +258,7 @@ def diagonal_winner(board, player):
     return False
 
 
-#MAIN
+# // MAIN //
 last_movement = "O"
 
 while iterations != 9:
