@@ -20,11 +20,15 @@ def print_board():
 def ai_move(empty_positions):
     counter_play, verify_counter_play = find_critical_moves(board, player = "X")
     winning_move, verify_winning_move = find_winning_moves(board, player = "O")
+    key_move, verify_key_move = verify_key_moves(board)
     if verify_winning_move == True:
         row, column = winning_move
         board[row][column] = "O"
     elif verify_counter_play == True:
         row, column = counter_play
+        board[row][column] = "O"
+    elif verify_key_move == True:
+        row, column = key_move
         board[row][column] = "O"
     else:
         row,column = random.choice(empty_positions)
