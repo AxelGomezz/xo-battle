@@ -15,7 +15,7 @@ def print_board():
         print("")
         i+=1
 
-
+ ##modulariz all code
 #       // AI //
 def ai_move(empty_positions):
     counter_play, verify_counter_play = find_critical_moves(board, player = "X")
