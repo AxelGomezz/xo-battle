@@ -1,6 +1,6 @@
 import random
-from logic import check_winner
-from cli import print_board
+from logic import check_winner, verify_move
+from cli import print_board, request_movement
 
 board = [[" ", " ", " "],
          [" ", " ", " "],
@@ -197,28 +197,6 @@ def find_horizontal_critical_moves(board, player):
 
 
 # //Movements functions//
-def request_movement():
-    print("\nWhat's your next move?")
-    while True:
-        try:
-            row = int(input("Enter row of your selection: "))
-            column = int(input("Enter column of your selection: "))
-
-            if row in [1,2,3] and column in [1,2,3]:
-
-                if board[row - 1][column - 1] == " ":
-                    return row, column
-                    break
-                else:
-                    print("\nThat position in board is not empty\nPlease enter a position empty in board\n")
-                    print_board(board)
-
-            else:
-                print("\nERROR: POSITION SELECTED IS INVALID.\n")
-                print_board(board)
-        except ValueError:
-            print("\nERROR: INVALID VALUE\nPlease enter a number of position in board.")
-            print_board(board)
 
 def do_movement(row, column,player):
     board[row-1][column-1] = player
@@ -226,14 +204,21 @@ def do_movement(row, column,player):
 
 # // MAIN //
 last_movement = "O"
+move = ()
 
 while iterations != 9:
     print_board(board)
 
     if last_movement == "O":
-        row, column = request_movement()
-        do_movement(row, column,"X")
-
+        
+        while True:
+            row, column = request_movement(board)
+            move = verify_move(board, row, column)
+            if move is not None:
+                row, column = move
+                do_movement(row, column,"X")
+                break
+        
         if check_winner(board, "X") == True:
             print_board(board)
             print("Player X is the winner!")

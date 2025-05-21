@@ -1,3 +1,11 @@
+#moves
+def verify_move(board, row, column):
+    if board[row - 1][column - 1] == " ":
+        return row, column
+    else:
+        return None
+
+
 # Checks winners
 def diagonal_winner(board, player):
     if all(board[cell][cell] == player for cell in range(3)):
