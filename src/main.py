@@ -1,21 +1,12 @@
 import random
 from logic import check_winner
+from cli import print_board
 
 board = [[" ", " ", " "],
          [" ", " ", " "],
          [" ", " ", " "]]
 iterations = 0
 empty_positions = []
-
-def print_board():
-    print("  1 | 2 | 3")
-    i = 1
-    for list in board:
-        print(i, end=" ")
-        for item in list:
-            print(item, end=" | ")
-        print("")
-        i+=1
 
  ##modulariz all code
 #       // AI //
@@ -220,14 +211,14 @@ def request_movement():
                     break
                 else:
                     print("\nThat position in board is not empty\nPlease enter a position empty in board\n")
-                    print_board()
+                    print_board(board)
 
             else:
                 print("\nERROR: POSITION SELECTED IS INVALID.\n")
-                print_board()
+                print_board(board)
         except ValueError:
             print("\nERROR: INVALID VALUE\nPlease enter a number of position in board.")
-            print_board()
+            print_board(board)
 
 def do_movement(row, column,player):
     board[row-1][column-1] = player
@@ -237,14 +228,14 @@ def do_movement(row, column,player):
 last_movement = "O"
 
 while iterations != 9:
-    print_board()
+    print_board(board)
 
     if last_movement == "O":
         row, column = request_movement()
         do_movement(row, column,"X")
 
         if check_winner(board, "X") == True:
-            print_board()
+            print_board(board)
             print("Player X is the winner!")
             break
 
@@ -254,7 +245,7 @@ while iterations != 9:
         print("\n-- BOT O Realized move --")
         ai_move(empty_positions)
         if check_winner(board, "O") == True:
-            print_board()
+            print_board(board)
             print("Player O is the winner!")
             break
 
@@ -262,5 +253,5 @@ while iterations != 9:
     iterations +=1
 
 if iterations == 9:
-    print_board()
+    print_board(board)
     print("-- EMPATE --")
