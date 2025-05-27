@@ -1,5 +1,5 @@
 import random
-from logic import check_winner, verify_move
+from logic import check_winner, verify_move, do_movement
 from cli import print_board, request_movement
 
 board = [[" ", " ", " "],
@@ -196,12 +196,6 @@ def find_horizontal_critical_moves(board, player):
     return None, False
 
 
-# //Movements functions//
-
-def do_movement(row, column,player):
-    board[row-1][column-1] = player
-
-
 # // MAIN //
 last_movement = "O"
 move = ()
@@ -216,7 +210,7 @@ while iterations != 9:
             move = verify_move(board, row, column)
             if move is not None:
                 row, column = move
-                do_movement(row, column,"X")
+                do_movement(board, row, column,"X")
                 break
         
         if check_winner(board, "X") == True:

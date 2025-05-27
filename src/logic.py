@@ -5,7 +5,9 @@ def verify_move(board, row, column):
     else:
         return None
 
-
+def do_movement(board, row, column,player):
+    board[row-1][column-1] = player
+    
 # Checks winners
 def diagonal_winner(board, player):
     if all(board[cell][cell] == player for cell in range(3)):
