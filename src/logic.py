@@ -8,6 +8,13 @@ def verify_move(board, row, column):
 def do_movement(board, row, column,player):
     board[row-1][column-1] = player
     
+def switch_turn(current_turn):
+        if current_turn == "O":
+            return "X"
+        else:
+            return "O"
+
+
 # Checks winners
 def diagonal_winner(board, player):
     if all(board[cell][cell] == player for cell in range(3)):

@@ -1,5 +1,5 @@
 import random
-from logic import check_winner, verify_move, do_movement
+from logic import check_winner, verify_move, do_movement, switch_turn
 from cli import print_board, request_movement
 from ai import check_empty_position, ai_move
 
@@ -12,13 +12,14 @@ empty_positions = []
 
 
 # // MAIN //
-last_movement = "O"
+current_turn = "O"
 move = ()
 
 while iterations != 9:
     print_board(board)
 
-    if last_movement == "O":
+    current_turn = switch_turn(current_turn) 
+    if current_turn == "X":
         
         while True:
             row, column = request_movement(board)
@@ -33,7 +34,6 @@ while iterations != 9:
             print("Player X is the winner!")
             break
 
-        last_movement = "X"
     else:
         check_empty_position(empty_positions, board)
         print("\n-- BOT O Realized move --")
@@ -43,7 +43,6 @@ while iterations != 9:
             print("Player O is the winner!")
             break
 
-        last_movement = "O"
     iterations +=1
 
 if iterations == 9:
